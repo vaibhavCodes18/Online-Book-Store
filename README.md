@@ -72,35 +72,6 @@ It demonstrates how to structure a Java Dynamic Web Project using **Servlets, JS
 
 ---
 
-## Project Structure
-
-OnlineBookStoreMVC/
-│
-├── README.md
-├── build/
-│   └── classes/
-│       └── com/
-│           ├── book/
-│           └── servlet/
-├── src/
-│   └── main/
-│       ├── java/
-│       │   └── com/
-│       │       ├── book/
-│       │       │   └── Books.java
-│       │       └── servlet/
-│       │           └── AddBookServlet.java
-│       └── webapp/
-│           ├── book-store.jsp
-│           ├── index.html
-│           ├── META-INF/
-│           │   └── MANIFEST.MF
-│           └── WEB-INF/
-│               ├── web.xml
-│               └── lib/
-
----
-
 ## How to Run the Project
 
 1. Clone the repository
