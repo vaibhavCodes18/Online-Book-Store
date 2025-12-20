@@ -5,18 +5,6 @@ It demonstrates how to structure a Java Dynamic Web Project using **Servlets, JS
 
 ---
 
-## Project Overview
-
-The Online Book Store allows users to:
-- View available books
-- Add new books
-- Edit existing book details
-- Automatically remove a book when its quantity becomes zero
-
-The project strictly follows the **Model–View–Controller (MVC)** design pattern to keep the code clean, modular, and maintainable.
-
----
-
 ## MVC Architecture Used
 
 ### Model
