@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Store | Welcome</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      body {
+        background-color: #f9fafb;
+      }
+      .btn-primary {
+        background-color: #4f46e5;
+        color: white;
+      }
+      .btn-primary:hover {
+        background-color: #4338ca;
+      }
+      .hero-bg {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      }
+    </style>
+  </head>
+  <body class="font-sans">
+    <!-- Simple Header -->
+    <header class="bg-white shadow-sm">
+      <div class="container mx-auto px-4 py-4">
+        <div class="flex justify-between items-center">
+          <div class="flex items-center">
+            <i class="fas fa-book text-2xl text-indigo-600 mr-3"></i>
+            <h1 class="text-2xl font-bold text-gray-800">Book Store</h1>
+          </div>
+          <a
+            href="book-store.html"
+            class="btn-primary px-6 py-2 rounded-lg font-medium"
+          >
+            Go to App →
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <main class="min-h-screen flex items-center">
+      <div class="container mx-auto px-4 py-12">
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="md:flex">
+              <!-- Left Side -->
+              <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+                  Simple Book Management
+                </h2>
+                <p class="text-gray-600 mb-8 text-lg">
+                  A clean, easy-to-use book management system built with MVC
+                  architecture.
+                </p>
+
+                <div class="space-y-4 mb-8">
+                  <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>Add new books</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>Edit book details</span>
+                  </div>
+                  <div class="flex items-center">
+                    <i class="fas fa-check-circle text-green-500 mr-3"></i>
+                    <span>Delete books</span>
+                  </div>
+                </div>
+
+                <a
+                  href="book-store.jsp"
+                  class="btn-primary px-8 py-4 rounded-lg text-lg font-medium inline-flex items-center justify-center w-full md:w-auto"
+                >
+                  <i class="fas fa-play-circle mr-3"></i>
+                  Get Started
+                </a>
+              </div>
+
+              <!-- Right Side -->
+              <div
+                class="md:w-1/2 hero-bg p-8 md:p-12 text-white flex flex-col justify-center"
+              >
+                <div class="text-center mb-8">
+                  <i class="fas fa-layer-group text-5xl mb-4"></i>
+                  <h3 class="text-2xl font-bold">MVC Architecture</h3>
+                </div>
+
+                <div class="space-y-6">
+                  <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-cube text-yellow-300 mr-3"></i>
+                      <h4 class="font-bold">Model</h4>
+                    </div>
+                    <p class="text-sm opacity-90">
+                      Book entity with ID, Title, Author
+                    </p>
+                  </div>
+
+                  <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-eye text-blue-300 mr-3"></i>
+                      <h4 class="font-bold">View</h4>
+                    </div>
+                    <p class="text-sm opacity-90">
+                      User interface for book management
+                    </p>
+                  </div>
+
+                  <div class="bg-white bg-opacity-10 p-4 rounded-lg">
+                    <div class="flex items-center mb-2">
+                      <i class="fas fa-cogs text-purple-300 mr-3"></i>
+                      <h4 class="font-bold">Controller</h4>
+                    </div>
+                    <p class="text-sm opacity-90">
+                      BookServlet handles all operations
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Simple Footer -->
+          <div class="mt-8 text-center text-gray-500">
+            <p>Click "Get Started" to access the Book Store application</p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
