@@ -68,7 +68,6 @@
   		request.getRequestDispatcher("BookServlet?action=list").include(request, response);
   		books = (List<Books>)request.getAttribute("allbooks");
   	}
-  	System.out.println(books);
   %>
     <div class="container mx-auto px-4 py-8 max-w-6xl">
       <!-- Header -->
@@ -199,7 +198,7 @@
                 <th
                   class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Qty
+                  qty
                 </th>
                 <th
                   class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -314,88 +313,66 @@
         </div>
 
         <form
-          id="edit-book-form"
-          action="BookServlet?action=update"
-          method="POST"
-          class="edit-form space-y-6 mt-6"
-        >
-          <input type="hidden" name="action" value="update" />
-          <input type="hidden" id="edit-id" name="id" />
+  id="edit-book-form"
+  action="BookServlet?action=update"
+  method="POST"
+  class="edit-form space-y-6 mt-6"
+>
+  <!-- IMPORTANT -->
+  <input type="hidden" name="action" value="update" />
+  <input type="hidden" id="edit-id" name="id" />
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Book Title <span class="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="edit-title"
-                name="title"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
-                placeholder="Enter book title"
-                required
-              />
-            </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">
+        Book Title
+      </label>
+      <input
+        type="text"
+        id="edit-title"
+        name="title"
+        required
+        class="w-full px-4 py-3 border rounded-lg"
+      />
+    </div>
 
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Author <span class="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                id="edit-author"
-                name="author"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
-                placeholder="Enter author name"
-                required
-              />
-            </div>
-            <div>
-              <label class="block text-sm font-medium text-gray-700 mb-2">
-                Quantity <span class="text-red-500">*</span>
-              </label>
-              <input
-                type="number"
-                id="edit-qty"
-                name="quantity"
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
-                placeholder="Enter qty"
-                required
-              />
-            </div>
-          </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">
+        Author
+      </label>
+      <input
+        type="text"
+        id="edit-author"
+        name="author"
+        required
+        class="w-full px-4 py-3 border rounded-lg"
+      />
+    </div>
 
-          <div
-            class="flex flex-col sm:flex-row justify-between items-center p-4 bg-yellow-50 rounded-lg border border-yellow-200"
-          >
-            <div class="mb-4 sm:mb-0">
-              <div class="flex items-center text-sm text-yellow-800">
-                <i class="fas fa-exclamation-circle mr-2"></i>
-                <span
-                  >Editing Book ID:
-                  <span id="edit-id-display" class="font-bold"></span
-                ></span>
-              </div>
-            </div>
+    <div>
+      <label class="block text-sm font-medium text-gray-700 mb-2">
+        Quantity
+      </label>
+      <input
+        type="number"
+        id="edit-qty"
+        name="quantity"
+        required
+        class="w-full px-4 py-3 border rounded-lg"
+      />
+    </div>
+  </div>
 
-            <div class="flex space-x-3">
-              <button
-                type="button"
-                onclick="cancelEdit()"
-                class="px-5 py-3 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50"
-              >
-                Cancel Edit
-              </button>
-              <button
-                type="submit"
-                class="px-6 py-3 rounded-lg font-medium btn-success"
-              >
-                <i class="fas fa-check-circle mr-2"></i>
-                Update Book
-              </button>
-            </div>
-          </div>
-        </form>
+  <div class="flex justify-end space-x-3">
+    <button type="button" onclick="cancelEdit()" class="px-4 py-2 border rounded">
+      Cancel
+    </button>
+    <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded">
+      Update Book
+    </button>
+  </div>
+</form>
+        
       </section>
 
       <!-- MVC Architecture Info -->
@@ -473,24 +450,15 @@
     <script>
       // Simple JavaScript to handle showing/hiding edit form
       function showEditForm(id, title, author, qty) {
-        // Hide placeholder
-        document.getElementById("edit-form-placeholder").style.display = "none";
+  		document.getElementById("edit-form-placeholder").style.display = "none";
+  		document.getElementById("edit-book-form").style.display = "block";
 
-        // Show edit form
-        const editForm = document.getElementById("edit-book-form");
-        editForm.style.display = "block";
+  		document.getElementById("edit-id").value = id;
+  		document.getElementById("edit-title").value = title;
+  		document.getElementById("edit-author").value = author;
+  		document.getElementById("edit-qty").value = qty;
 
-        // Populate form fields
-        document.getElementById("edit-id").value = id;
-        document.getElementById("edit-title").value = title;
-        document.getElementById("edit-author").value = author;
-        document.getElementById("edit-qty").value = qty;
-        document.getElementById("edit-id-display").textContent = id;
 
-        // Show editing indicator
-        const indicator = document.getElementById("editing-indicator");
-        indicator.classList.remove("hidden");
-        document.getElementById("current-edit-id").textContent = id;
 
         // Scroll to edit form
         editForm.scrollIntoView({ behavior: "smooth" });
@@ -514,35 +482,20 @@
       }
 
       // Handle form submission
-      document
-        .getElementById("edit-book-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const id = document.getElementById("edit-id").value;
-          const title = document.getElementById("edit-title").value;
-          const author = document.getElementById("edit-author").value;
-
-          alert(
-            `Book ID ${id} updated!\nTitle: ${title}\nAuthor: ${author}\n\nIn a real application, this would be sent to BookServlet.`
-          );
-
-          // Reset form
-          cancelEdit();
-        });
+      
 
       // Handle add form submission
       document
-        .querySelector('form[action="#"] input[name="action"][value="add"]')
+        .querySelector('form[action="BookServlet?action=update"] input[name="action"][value="update"]')
         .closest("form")
         .addEventListener("submit", function (e) {
-          e.preventDefault();
           const title = this.querySelector('input[name="title"]').value;
           const author = this.querySelector('input[name="author"]').value;
 
           alert(
             `New book added!\nTitle: ${title}\nAuthor: ${author}\n\nIn a real application, this would be sent to BookServlet.`
           );
-          this.reset();
+         // this.reset();
         });
     </script>
   </body>

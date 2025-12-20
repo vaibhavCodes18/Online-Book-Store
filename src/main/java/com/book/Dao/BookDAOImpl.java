@@ -48,7 +48,6 @@ public class BookDAOImpl implements BookDAO {
 				b.setQuantity(rs.getInt(4));
 				book.add(b);
 			}
-			System.out.println(book);
 			return book;
 		} catch (SQLException e) {
 			e.printStackTrace();

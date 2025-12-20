@@ -26,7 +26,6 @@ public class BookServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		BookDAO book = new BookDAOImpl();
 		if(action.equals("list")) {
-			System.out.println("hello");
 			List<Books> books = book.getAllBook();
 			req.setAttribute("allbooks", books);
 			req.getRequestDispatcher("book-store.jsp").forward(req, res);
@@ -38,6 +37,7 @@ public class BookServlet extends HttpServlet {
 		String bookTitle = req.getParameter("title");
 		String bookAuthor = req.getParameter("author");
 		int bookQty= Integer.parseInt(req.getParameter("quantity"));
+		int id = Integer.parseInt(req.getParameter("id"));
 		
 		BookDAO book = new BookDAOImpl();
 		
@@ -50,6 +50,14 @@ public class BookServlet extends HttpServlet {
 			if(addResult) {
 				res.sendRedirect("book-added.html");
 			}
+		}
+		
+		if ("update".equals(action)) {
+		    
+		    System.out.println(id);
+		    System.out.println(bookTitle);
+		    System.out.println(bookAuthor);
+		    System.out.println(bookQty);
 		}
 		
 		
