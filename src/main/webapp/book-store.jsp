@@ -1,3 +1,5 @@
+<%@page import="com.book.Books"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -59,6 +61,15 @@
     </style>
   </head>
   <body class="font-sans bg-gray-50">
+  <%
+  	
+  	List<Books> books = (List<Books>)request.getAttribute("allbooks");
+  	if(books == null){
+  		request.getRequestDispatcher("BookServlet?action=list").include(request, response);
+  		books = (List<Books>)request.getAttribute("allbooks");
+  	}
+  	System.out.println(books);
+  %>
     <div class="container mx-auto px-4 py-8 max-w-6xl">
       <!-- Header -->
       <header class="mb-10">
@@ -91,7 +102,7 @@
           Add New Book
         </h2>
 
-        <form action="#" method="POST" class="space-y-6">
+        <form action="BookServlet?action=add" method="POST" class="space-y-6">
           <input type="hidden" name="action" value="add" />
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -117,6 +128,18 @@
                 name="author"
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
                 placeholder="Enter author name"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Book Quantity <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                name="quantity"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
+                placeholder="Enter book quantity"
                 required
               />
             </div>
@@ -176,7 +199,7 @@
                 <th
                   class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
-                  Status
+                  Qty
                 </th>
                 <th
                   class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -187,32 +210,50 @@
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
               <!-- Book 1 -->
+               <%
+                  if (books == null || books.isEmpty()) {
+               %>
+               <tr>
+                    <td colspan="6" class="py-8 px-6 text-center text-gray-500">
+                      <i class="fas fa-user-slash text-3xl mb-2"></i>
+                      <p class="text-lg font-medium">No Librarians Found</p>
+                      <p class="text-sm mt-1">Click "Add Librarian" to create the first librarian account.</p>
+                    </td>
+                  </tr>
+               <% } else{ 
+               
+               for(Books bks:books){
+            	   int id = bks.getId();
+            	   String bookName = bks.getBookName();
+            	   String bookAuthor = bks.getAuthorName();
+            	   int qty = bks.getQuantity();
+               %>
               <tr class="book-row">
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                 >
-                  101
+                  <%= id %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="text-sm font-medium text-gray-900">
-                    The Great Gatsby
+                     <%= bookName %>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  F. Scott Fitzgerald
+                  <%= bookAuthor %>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span
                     class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
                   >
-                    <i class="fas fa-check mr-1"></i> In Stock
+                    <%= qty %>
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <div class="flex space-x-2">
                     <!-- Edit Button - Shows the edit form for this book -->
                     <button
-                      onclick="showEditForm('101', 'The Great Gatsby', 'F. Scott Fitzgerald')"
+                      onclick="showEditForm('<%= id %>', '<%= bookName %>', '<%= bookAuthor %>', '<%= qty %>')"
                       class="btn-warning px-4 py-2 rounded-md text-sm flex items-center"
                     >
                       <i class="fas fa-edit mr-1"></i> Edit
@@ -221,7 +262,7 @@
                     <!-- Delete Button -->
                     <form action="#" method="POST" class="inline">
                       <input type="hidden" name="action" value="delete" />
-                      <input type="hidden" name="id" value="101" />
+                      <input type="hidden" name="id" value="<%= id %>" />
                       <button
                         type="submit"
                         class="btn-danger px-4 py-2 rounded-md text-sm flex items-center"
@@ -233,142 +274,8 @@
                   </div>
                 </td>
               </tr>
-
-              <!-- Book 2 -->
-              <tr class="book-row">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                >
-                  102
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-gray-900">
-                    To Kill a Mockingbird
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  Harper Lee
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span
-                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800"
-                  >
-                    <i class="fas fa-exclamation-triangle mr-1"></i> Low Stock
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div class="flex space-x-2">
-                    <button
-                      onclick="showEditForm('102', 'To Kill a Mockingbird', 'Harper Lee')"
-                      class="btn-warning px-4 py-2 rounded-md text-sm flex items-center"
-                    >
-                      <i class="fas fa-edit mr-1"></i> Edit
-                    </button>
-
-                    <form action="#" method="POST" class="inline">
-                      <input type="hidden" name="action" value="delete" />
-                      <input type="hidden" name="id" value="102" />
-                      <button
-                        type="submit"
-                        class="btn-danger px-4 py-2 rounded-md text-sm flex items-center"
-                        onclick="return confirm('Delete this book?')"
-                      >
-                        <i class="fas fa-trash mr-1"></i> Delete
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Book 3 -->
-              <tr class="book-row">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                >
-                  103
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-gray-900">1984</div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  George Orwell
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span
-                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"
-                  >
-                    <i class="fas fa-check mr-1"></i> In Stock
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div class="flex space-x-2">
-                    <button
-                      onclick="showEditForm('103', '1984', 'George Orwell')"
-                      class="btn-warning px-4 py-2 rounded-md text-sm flex items-center"
-                    >
-                      <i class="fas fa-edit mr-1"></i> Edit
-                    </button>
-
-                    <form action="#" method="POST" class="inline">
-                      <input type="hidden" name="action" value="delete" />
-                      <input type="hidden" name="id" value="103" />
-                      <button
-                        type="submit"
-                        class="btn-danger px-4 py-2 rounded-md text-sm flex items-center"
-                        onclick="return confirm('Delete this book?')"
-                      >
-                        <i class="fas fa-trash mr-1"></i> Delete
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
-
-              <!-- Book 4 (Zero count) -->
-              <tr class="book-row bg-red-50">
-                <td
-                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                >
-                  104
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <div class="text-sm font-medium text-gray-900">
-                    Pride and Prejudice
-                  </div>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  Jane Austen
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap">
-                  <span
-                    class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800"
-                  >
-                    <i class="fas fa-times mr-1"></i> Out of Stock
-                  </span>
-                </td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <div class="flex space-x-2">
-                    <button
-                      onclick="showEditForm('104', 'Pride and Prejudice', 'Jane Austen')"
-                      class="btn-warning px-4 py-2 rounded-md text-sm flex items-center"
-                    >
-                      <i class="fas fa-edit mr-1"></i> Edit
-                    </button>
-
-                    <form action="#" method="POST" class="inline">
-                      <input type="hidden" name="action" value="delete" />
-                      <input type="hidden" name="id" value="104" />
-                      <button
-                        type="submit"
-                        class="btn-danger px-4 py-2 rounded-md text-sm flex items-center"
-                        onclick="return confirm('Delete this book? This book has zero count.')"
-                      >
-                        <i class="fas fa-trash mr-1"></i> Delete
-                      </button>
-                    </form>
-                  </div>
-                </td>
-              </tr>
+			<% } }%>
+             
             </tbody>
           </table>
         </div>
@@ -408,7 +315,7 @@
 
         <form
           id="edit-book-form"
-          action="#"
+          action="BookServlet?action=update"
           method="POST"
           class="edit-form space-y-6 mt-6"
         >
@@ -440,6 +347,19 @@
                 name="author"
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
                 placeholder="Enter author name"
+                required
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">
+                Quantity <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="number"
+                id="edit-qty"
+                name="quantity"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg form-input"
+                placeholder="Enter qty"
                 required
               />
             </div>
@@ -552,7 +472,7 @@
 
     <script>
       // Simple JavaScript to handle showing/hiding edit form
-      function showEditForm(id, title, author) {
+      function showEditForm(id, title, author, qty) {
         // Hide placeholder
         document.getElementById("edit-form-placeholder").style.display = "none";
 
@@ -564,6 +484,7 @@
         document.getElementById("edit-id").value = id;
         document.getElementById("edit-title").value = title;
         document.getElementById("edit-author").value = author;
+        document.getElementById("edit-qty").value = qty;
         document.getElementById("edit-id-display").textContent = id;
 
         // Show editing indicator
