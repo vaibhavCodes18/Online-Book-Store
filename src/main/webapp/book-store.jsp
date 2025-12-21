@@ -259,7 +259,7 @@
                     </button>
 
                     <!-- Delete Button -->
-                    <form action="#" method="POST" class="inline">
+                    <form action="BookServlet" method="post" class="inline">
                       <input type="hidden" name="action" value="delete" />
                       <input type="hidden" name="id" value="<%= id %>" />
                       <button
@@ -493,7 +493,7 @@
           const author = this.querySelector('input[name="author"]').value;
 
           alert(
-            `New book added!\nTitle: ${title}\nAuthor: ${author}\n\nIn a real application, this would be sent to BookServlet.`
+            `New book added!`
           );
          // this.reset();
         });
