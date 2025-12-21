@@ -91,4 +91,18 @@ public class BookDAOImpl implements BookDAO {
 		return false;
 	}
 
+	@Override
+	public boolean deleteBooKIfQtyZero() {
+		String sql = "DELETE FROM books WHERE quantity <= 0";
+		try(Connection con = DBUtil.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql);){
+			int i = ps.executeUpdate();
+			return i>0;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 }

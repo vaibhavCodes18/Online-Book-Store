@@ -20,7 +20,6 @@ public class BookServlet extends HttpServlet {
        
     public BookServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -28,6 +27,12 @@ public class BookServlet extends HttpServlet {
 		res.setContentType("html/text");
 		String action = req.getParameter("action");
 		BookDAO book = new BookDAOImpl();
+		
+		boolean deleteBookIfZero = book.deleteBooKIfQtyZero();
+		if(deleteBookIfZero) {
+			res.sendRedirect("BookServlet?action=list");
+		}
+		
 		if(action.equals("list")) {
 			List<Books> books = book.getAllBook();
 			if(books!=null) {
@@ -50,6 +55,11 @@ public class BookServlet extends HttpServlet {
 		int id = req.getParameter("id") != null ? Integer.parseInt(req.getParameter("id")) : 0;
 		
 		BookDAO book = new BookDAOImpl();
+		
+		boolean deleteBookIfZero = book.deleteBooKIfQtyZero();
+		if(deleteBookIfZero) {
+			res.sendRedirect("BookServlet?action=list");
+		}
 		
 		if(action.equals("add")) {
 			Books b = new Books();
@@ -86,10 +96,6 @@ public class BookServlet extends HttpServlet {
 			}else {
 				out.println("<p>Book was deleted</p>");
 			}
-
 		}
-		
-		
 	}
-
 }

@@ -12,4 +12,6 @@ public interface BookDAO {
 	boolean updateBook(Books b);
 	
 	boolean deleteBook(int id);
+	
+	boolean deleteBooKIfQtyZero();
 }

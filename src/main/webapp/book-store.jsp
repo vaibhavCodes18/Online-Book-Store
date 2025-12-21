@@ -165,7 +165,7 @@
             <span
               class="ml-3 bg-indigo-100 text-indigo-800 text-sm font-semibold px-3 py-1 rounded-full"
             >
-              4 books
+              <%= books.size() %> books
             </span>
           </h2>
 
@@ -180,6 +180,11 @@
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
               <tr>
+              <th
+                  class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                >
+                  S.No.
+                </th>
                 <th
                   class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                 >
@@ -215,12 +220,12 @@
                <tr>
                     <td colspan="6" class="py-8 px-6 text-center text-gray-500">
                       <i class="fas fa-user-slash text-3xl mb-2"></i>
-                      <p class="text-lg font-medium">No Librarians Found</p>
-                      <p class="text-sm mt-1">Click "Add Librarian" to create the first librarian account.</p>
+                      <p class="text-lg font-medium">No Books Found</p>
+                      <p class="text-sm mt-1">Click "Add Book" to add the first book.</p>
                     </td>
                   </tr>
                <% } else{ 
-               
+               int i = 0;
                for(Books bks:books){
             	   int id = bks.getId();
             	   String bookName = bks.getBookName();
@@ -228,6 +233,11 @@
             	   int qty = bks.getQuantity();
                %>
               <tr class="book-row">
+              <td
+                  class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
+                >
+                  <%= i+1 %>
+                </td>
                 <td
                   class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
                 >
@@ -273,7 +283,8 @@
                   </div>
                 </td>
               </tr>
-			<% } }%>
+              
+			<% i++; } }%>
              
             </tbody>
           </table>
