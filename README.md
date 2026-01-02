@@ -41,7 +41,7 @@ It demonstrates how to structure a Java Dynamic Web Project using **Servlets, JS
 ## Functional Requirements
 
 - Display the list of books available in the store
-- Add a new book
+- Add new book
 - Edit book details
 - Reduce book quantity
 - Delete a book automatically when quantity becomes zero
